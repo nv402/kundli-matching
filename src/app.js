@@ -278,17 +278,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 // Toggle detailed Guna information
 function toggleGunaDetails(gunaKey) {
-    const detailsDiv = document.getElementById(`details-${gunaKey}`);
-    const icon = document.getElementById(`icon-${gunaKey}`);
-
-    if (detailsDiv.style.display === 'none') {
-        detailsDiv.style.display = 'block';
-        icon.textContent = '▲';
-        detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    } else {
-        detailsDiv.style.display = 'none';
-        icon.textContent = '▼';
-    }
+    // Expand all guna details and set all icons to '▲'
+    const allDetails = document.querySelectorAll('.guna-detailed-info');
+    const allIcons = document.querySelectorAll('.expand-icon');
+    allDetails.forEach(div => { div.style.display = 'block'; });
+    allIcons.forEach(icon => { icon.textContent = '▲'; });
 }
 
 // Get detailed information for each Guna
@@ -559,37 +553,37 @@ function getPlanetaryRelationship(planet1, planet2) {
         "Saturn": { friends: ["Mercury", "Venus"], enemies: ["Sun", "Moon", "Mars"], neutral: ["Jupiter"] },
         "Rahu": { friends: ["Mercury", "Venus", "Saturn"], enemies: ["Sun", "Moon", "Mars"], neutral: ["Jupiter"] },
         "Ketu": { friends: ["Mars", "Venus", "Saturn"], enemies: ["Sun", "Moon"], neutral: ["Mercury", "Jupiter"] }
-    }; Yoni, score) {
-        const yoniRelations = {
-            "Horse": { enemies: ["Buffalo"], friends: ["Dog"], neutral: ["Tiger", "Snake"] },
-            "Elephant": { enemies: ["Lion", "Rat"], friends: [], neutral: ["Dog"] },
-            "Sheep": { enemies: [], friends: ["Monkey"], neutral: ["Snake"] },
-            "Snake": { enemies: ["Mongoose"], friends: ["Monkey", "Horse"], neutral: ["Sheep"] },
-            "Dog": { enemies: ["Monkey"], friends: ["Horse", "Elephant"], neutral: [] },
-            "Cat": { enemies: ["Rat"], friends: [], neutral: ["Monkey"] },
-            "Rat": { enemies: ["Cat", "Elephant"], friends: ["Buffalo"], neutral: [] },
-            "Cow": { enemies: ["Tiger"], friends: [], neutral: ["Lion"] },
-            "Buffalo": { enemies: ["Horse"], friends: ["Rat"], neutral: ["Tiger"] },
-            "Tiger": { enemies: ["Cow"], friends: [], neutral: ["Buffalo", "Deer"] },
-            "Deer": { enemies: [], friends: [], neutral: ["Tiger", "Monkey"] },
-            "Monkey": { enemies: ["Dog"], friends: ["Snake", "Sheep", "Deer"], neutral: ["Cat"] },
-            "Mongoose": { enemies: ["Snake"], friends: [], neutral: [] },
-            "Lion": { enemies: ["Elephant"], friends: [], neutral: ["Cow"] }
-        };
+    };
+    const yoniRelations = {
+        "Horse": { enemies: ["Buffalo"], friends: ["Dog"], neutral: ["Tiger", "Snake"] },
+        "Elephant": { enemies: ["Lion", "Rat"], friends: [], neutral: ["Dog"] },
+        "Sheep": { enemies: [], friends: ["Monkey"], neutral: ["Snake"] },
+        "Snake": { enemies: ["Mongoose"], friends: ["Monkey", "Horse"], neutral: ["Sheep"] },
+        "Dog": { enemies: ["Monkey"], friends: ["Horse", "Elephant"], neutral: [] },
+        "Cat": { enemies: ["Rat"], friends: [], neutral: ["Monkey"] },
+        "Rat": { enemies: ["Cat", "Elephant"], friends: ["Buffalo"], neutral: [] },
+        "Cow": { enemies: ["Tiger"], friends: [], neutral: ["Lion"] },
+        "Buffalo": { enemies: ["Horse"], friends: ["Rat"], neutral: ["Tiger"] },
+        "Tiger": { enemies: ["Cow"], friends: [], neutral: ["Buffalo", "Deer"] },
+        "Deer": { enemies: [], friends: [], neutral: ["Tiger", "Monkey"] },
+        "Monkey": { enemies: ["Dog"], friends: ["Snake", "Sheep", "Deer"], neutral: ["Cat"] },
+        "Mongoose": { enemies: ["Snake"], friends: [], neutral: [] },
+        "Lion": { enemies: ["Elephant"], friends: [], neutral: ["Cow"] }
+    };
 
-        if (groomYoni === brideYoni) {
-            return `<p><strong>Same Yoni:</strong> Perfect physical and sexual compatibility. Natural understanding of each other's needs and desires.</p>`;
-        }
-
-        const groomRelations = yoniRelations[groomYoni] || {};
-        if (groomRelations.enemies && groomRelations.enemies.includes(brideYoni)) {
-            return `<p><strong>Enemy Yonis:</strong> ${groomYoni} and ${brideYoni} are natural enemies. This may create significant challenges in physical intimacy and attraction.</p>`;
-        } else if (groomRelations.friends && groomRelations.friends.includes(brideYoni)) {
-            return `<p><strong>Friendly Yonis:</strong> ${groomYoni} and ${brideYoni} are naturally compatible. Good physical attraction and sexual harmony expected.</p>`;
-        } else {
-            return `<p><strong>Neutral Yonis:</strong> ${groomYoni} and ${brideYoni} have moderate compatibility. With effort and understanding, physical harmony can be achieved.</p>`;
-        }
+    if (groomYoni === brideYoni) {
+        return `<p><strong>Same Yoni:</strong> Perfect physical and sexual compatibility. Natural understanding of each other's needs and desires.</p>`;
     }
+
+    const groomRelations = yoniRelations[groomYoni] || {};
+    if (groomRelations.enemies && groomRelations.enemies.includes(brideYoni)) {
+        return `<p><strong>Enemy Yonis:</strong> ${groomYoni} and ${brideYoni} are natural enemies. This may create significant challenges in physical intimacy and attraction.</p>`;
+    } else if (groomRelations.friends && groomRelations.friends.includes(brideYoni)) {
+        return `<p><strong>Friendly Yonis:</strong> ${groomYoni} and ${brideYoni} are naturally compatible. Good physical attraction and sexual harmony expected.</p>`;
+    } else {
+        return `<p><strong>Neutral Yonis:</strong> ${groomYoni} and ${brideYoni} have moderate compatibility. With effort and understanding, physical harmony can be achieved.</p>`;
+    }
+}
 }
 }
 

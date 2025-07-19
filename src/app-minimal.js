@@ -569,19 +569,11 @@ function getRashiInfo(rashi, role) {
 
 // Toggle detailed Guna information
 function toggleGunaDetails(gunaKey) {
-    const detailsDiv = document.getElementById('details-' + gunaKey);
-    const icon = document.getElementById('icon-' + gunaKey);
-
-    if (detailsDiv && icon) {
-        if (detailsDiv.style.display === 'none') {
-            detailsDiv.style.display = 'block';
-            icon.textContent = '▲';
-            detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-            detailsDiv.style.display = 'none';
-            icon.textContent = '▼';
-        }
-    }
+    // Expand all guna details and set all icons to '▲'
+    const allDetails = document.querySelectorAll('.guna-detailed-info');
+    const allIcons = document.querySelectorAll('.expand-icon');
+    allDetails.forEach(div => { div.style.display = 'block'; });
+    allIcons.forEach(icon => { icon.textContent = '▲'; });
 }
 
 // Get detailed information for each Guna
