@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Functions</title>
+</head>
+<body>
+    <h1>Function Verification</h1>
+    <div id="results"></div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        function verifyFunctions() {
+            const results = document.getElementById('results');
+            let output = '<h3>Function Verification Results:</h3>';
+            
+            // Check if functions exist
+            const functions = [
+                'performMatching',
+                'toggleTutorial', 
+                'scrollToForms',
+                'validateInputs',
+                'displaySimpleResults'
+            ];
+            
+            functions.forEach(funcName => {
+                const exists = typeof window[funcName] === 'function';
+                output += `<p>${funcName}: ${exists ? '✅ Available' : '❌ Missing'}</p>`;
+            });
+            
+            // Check KundliEngine
+            output += `<p>KundliEngine: ${typeof KundliEngine === 'function' ? '✅ Available' : '❌ Missing'}</p>`;
+            
+            // Test engine creation
+            try {
+                const engine = new KundliEngine();
+                output += '<p>Engine Creation: ✅ Success</p>';
+                
+                // Test moon calculation
+                const pos = engine.calculateMoonPosition('1995-01-17', '04:10', 'Patna');
+                output += `<p>Moon Calculation: ✅ Success (Nakshatra: ${pos.nakshatra})</p>`;
+                
+            } catch (error) {
+                output += `<p>Engine Test: ❌ Error - ${error.message}</p>`;
+            }
+            
+            results.innerHTML = output;
+        }
+        
+        // Run verification on page load
+        window.addEventListener('load', verifyFunctions);
+    </script>
+</body>
+</html>

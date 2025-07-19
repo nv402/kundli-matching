@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Dark Mode</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .demo-section {
+            background: var(--card-bg);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        .demo-text {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .demo-secondary {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Dark Mode Test</h1>
+                    <p>Toggle between light and dark themes</p>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle" onclick="toggleTheme()" class="theme-btn">
+                        <span id="themeIcon">🌙</span>
+                        <span id="themeText">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="demo-section">
+            <h2 class="demo-text">Theme Features</h2>
+            <p class="demo-text">Click the theme toggle button to switch between light and dark modes.</p>
+            <p class="demo-secondary">The theme preference is saved in localStorage and will persist across sessions.</p>
+            
+            <h3 class="demo-text">What Changes:</h3>
+            <ul class="demo-text">
+                <li>Background colors and gradients</li>
+                <li>Text colors for optimal contrast</li>
+                <li>Card and form backgrounds</li>
+                <li>Border and shadow colors</li>
+                <li>Input field styling</li>
+            </ul>
+        </div>
+
+        <div class="form-container">
+            <div class="person-form">
+                <h2>Sample Form (Light/Dark)</h2>
+                <input type="text" placeholder="Name" value="Test User">
+                <input type="date" value="1995-01-17">
+                <input type="time" value="04:10">
+                <input type="text" placeholder="Place" value="Test City">
+            </div>
+            
+            <div class="person-form">
+                <h2>Theme Benefits</h2>
+                <p>✅ Reduced eye strain in low light</p>
+                <p>✅ Better battery life on OLED screens</p>
+                <p>✅ Modern, professional appearance</p>
+                <p>✅ Automatic theme persistence</p>
+            </div>
+        </div>
+
+        <button id="matchBtn" onclick="alert('Theme toggle working!')">Test Button Styling</button>
+    </div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        console.log("Dark mode test page loaded");
+        
+        // Additional demo functionality
+        setInterval(() => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            console.log("Current theme:", currentTheme || 'light');
+        }, 5000);
+    </script>
+</body>
+</html>

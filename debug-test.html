@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <button onclick="testMatching()">Test Matching</button>
+    <div id="debug-output"></div>
+
+    <script src="kundli-engine.js"></script>
+    <script>
+        function testMatching() {
+            console.log("Testing kundli matching...");
+            
+            try {
+                const engine = new KundliEngine();
+                console.log("Engine created:", engine);
+                
+                // Test moon position calculation
+                const groomPos = engine.calculateMoonPosition('1995-01-17', '04:10', 'Patna');
+                const bridePos = engine.calculateMoonPosition('1997-03-12', '12:01', 'Gaya');
+                
+                console.log("Groom position:", groomPos);
+                console.log("Bride position:", bridePos);
+                
+                // Test guna matching
+                const results = engine.calculateGunaMatching(groomPos, bridePos);
+                console.log("Matching results:", results);
+                
+                document.getElementById('debug-output').innerHTML = `
+                    <h3>Debug Results:</h3>
+                    <p>Groom Nakshatra: ${groomPos.nakshatra} (${engine.nakshatras[groomPos.nakshatra].name})</p>
+                    <p>Bride Nakshatra: ${bridePos.nakshatra} (${engine.nakshatras[bridePos.nakshatra].name})</p>
+                    <p>Total Score: ${results.totalScore}/36</p>
+                    <p>Compatibility: ${results.compatibility.level}</p>
+                    <pre>${JSON.stringify(results, null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('debug-output').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

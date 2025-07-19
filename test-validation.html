@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kundli Algorithm Validation</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #00ff00;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .pass { color: #00ff00; }
+        .fail { color: #ff0000; }
+        .warning { color: #ffaa00; }
+        .info { color: #00aaff; }
+        h1, h2 { color: #ffffff; }
+        .test-result {
+            margin: 10px 0;
+            padding: 5px;
+            background: #111;
+        }
+        button {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #00aa00;
+        }
+        .demo-section {
+            background: #001100;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 Kundli Algorithm Validation Suite</h1>
+        
+        <div class="demo-section">
+            <h2>Quick Demo Test</h2>
+            <button onclick="runQuickDemo()">Run Quick Demo</button>
+            <button onclick="runFullValidation()">Run Full Validation</button>
+            <button onclick="testSpecificCases()">Test Specific Cases</button>
+            <div id="demoResults"></div>
+        </div>
+
+        <div id="validationResults"></div>
+    </div>
+
+    <script src="kundli-engine.js"></script>
+    <script>
+        const engine = new KundliEngine();
+
+        function log(message, type = 'info') {
+            const colors = {
+                'pass': '#00ff00',
+                'fail': '#ff0000', 
+                'warning': '#ffaa00',
+                'info': '#00aaff'
+            };
+            console.log(`%c${message}`, `color: ${colors[type]}`);
+            return `<div class="test-result ${type}">${message}</div>`;
+        }
+
+        function runQuickDemo() {
+            const resultsDiv = document.getElementById('demoResults');
+            let output = '<h3>Quick Demo Results:</h3>';
+
+            // Test case: Same nakshatra (should be high compatibility)
+            const groom = { nakshatra: 0, rashi: 0 }; // Ashwini
+            const bride = { nakshatra: 0, rashi: 0 }; // Ashwini
+            
+            const result = engine.calculateGunaMatching(groom, bride);
+            
+            output += log(`Test: Same Nakshatra (Ashwini-Ashwini)`, 'info');
+            output += log(`Total Score: ${result.totalScore}/36`, result.totalScore >= 28 ? 'pass' : 'warning');
+            output += log(`Compatibility: ${result.compatibility.level}`, 'info');
+            
+            // Individual guna breakdown
+            Object.entries(result.results).forEach(([guna, data]) => {
+                const status = data.score === data.maxScore ? 'pass' : 
+                              data.score > 0 ? 'warning' : 'fail';
+                output += log(`${guna.toUpperCase()}: ${data.score}/${data.maxScore} - ${data.description}`, status);
+            });
+
+            resultsDiv.innerHTML = output;
+        }
+
+        function testSpecificCases() {
+            const resultsDiv = document.getElementById('validationResults');
+            let output = '<h3>Specific Test Cases:</h3>';
+
+            const testCases = [
+                {
+                    name: "Nadi Dosha Test",
+                    groom: { nakshatra: 0, rashi: 0 }, // Ashwini (Vata)
+                    bride: { nakshatra: 5, rashi: 2 }, // Ardra (Vata)
+                    expectedIssue: "nadi",
+                    description: "Same Nadi should create Nadi Dosha"
+                },
+                {
+                    name: "Gana Dosha Test", 
+                    groom: { nakshatra: 0, rashi: 0 }, // Ashwini (Deva)
+                    bride: { nakshatra: 2, rashi: 0 }, // Krittika (Rakshasa)
+                    expectedIssue: "gana",
+                    description: "Deva-Rakshasa should create Gana Dosha"
+                },
+                {
+                    name: "Perfect Yoni Match",
+                    groom: { nakshatra: 0, rashi: 0 }, // Ashwini (Horse)
+                    bride: { nakshatra: 23, rashi: 11 }, // Shatabhisha (Horse)
+                    expectedGood: "yoni",
+                    description: "Same Yoni should give full points"
+                },
+                {
+                    name: "Planetary Friendship Test",
+                    groom: { nakshatra: 0, rashi: 0 }, // Ashwini (Ketu)
+                    bride: { nakshatra: 9, rashi: 4 }, // Magha (Ketu)
+                    expectedGood: "graha_maitri",
+                    description: "Same planetary lord should give full points"
+                }
+            ];
+
+            testCases.forEach((testCase, index) => {
+                output += log(`\n--- Test ${index + 1}: ${testCase.name} ---`, 'info');
+                output += log(`Description: ${testCase.description}`, 'info');
+                
+                const result = engine.calculateGunaMatching(testCase.groom, testCase.bride);
+                
+                output += log(`Total Score: ${result.totalScore}/36`, 'info');
+                
+                if (testCase.expectedIssue) {
+                    const gunaResult = result.results[testCase.expectedIssue];
+                    const hasIssue = gunaResult.score === 0;
+                    output += log(`${testCase.expectedIssue.toUpperCase()} Issue Check: ${hasIssue ? 'DETECTED' : 'NOT DETECTED'}`, 
+                                hasIssue ? 'pass' : 'fail');
+                    output += log(`Score: ${gunaResult.score}/${gunaResult.maxScore}`, hasIssue ? 'pass' : 'fail');
+                }
+                
+                if (testCase.expectedGood) {
+                    const gunaResult = result.results[testCase.expectedGood];
+                    const isGood = gunaResult.score === gunaResult.maxScore;
+                    output += log(`${testCase.expectedGood.toUpperCase()} Perfect Match: ${isGood ? 'YES' : 'NO'}`, 
+                                isGood ? 'pass' : 'fail');
+                    output += log(`Score: ${gunaResult.score}/${gunaResult.maxScore}`, isGood ? 'pass' : 'fail');
+                }
+            });
+
+            resultsDiv.innerHTML = output;
+        }
+
+        function runFullValidation() {
+            const resultsDiv = document.getElementById('validationResults');
+            let output = '<h3>Full Algorithm Validation:</h3>';
+
+            // Test 1: Nakshatra Data Integrity
+            output += log('\n=== NAKSHATRA DATA VALIDATION ===', 'info');
+            
+            const expectedCount = 27;
+            const actualCount = engine.nakshatras.length;
+            output += log(`Nakshatra Count: ${actualCount}/${expectedCount}`, 
+                        actualCount === expectedCount ? 'pass' : 'fail');
+
+            // Check each nakshatra has required properties
+            let missingProperties = 0;
+            engine.nakshatras.forEach((nakshatra, index) => {
+                const required = ['name', 'lord', 'gana', 'yoni', 'nadi'];
+                const missing = required.filter(prop => !nakshatra[prop]);
+                if (missing.length > 0) {
+                    missingProperties++;
+                    output += log(`Nakshatra ${index} (${nakshatra.name}) missing: ${missing.join(', ')}`, 'fail');
+                }
+            });
+            
+            output += log(`Property Completeness: ${missingProperties === 0 ? 'PASS' : 'FAIL'}`, 
+                        missingProperties === 0 ? 'pass' : 'fail');
+
+            // Test 2: Guna Calculation Ranges
+            output += log('\n=== GUNA CALCULATION VALIDATION ===', 'info');
+            
+            const gunaMaxScores = {
+                varna: 1, vashya: 2, tara: 3, yoni: 4, 
+                graha_maitri: 5, gana: 6, bhakoot: 7, nadi: 8
+            };
+
+            // Test with random combinations
+            for (let i = 0; i < 10; i++) {
+                const groom = { 
+                    nakshatra: Math.floor(Math.random() * 27), 
+                    rashi: Math.floor(Math.random() * 12) 
+                };
+                const bride = { 
+                    nakshatra: Math.floor(Math.random() * 27), 
+                    rashi: Math.floor(Math.random() * 12) 
+                };
+                
+                const result = engine.calculateGunaMatching(groom, bride);
+                
+                // Check if scores are within valid ranges
+                let validRanges = true;
+                Object.entries(result.results).forEach(([guna, data]) => {
+                    if (data.score < 0 || data.score > gunaMaxScores[guna]) {
+                        validRanges = false;
+                        output += log(`Invalid ${guna} score: ${data.score}/${gunaMaxScores[guna]}`, 'fail');
+                    }
+                });
+                
+                if (validRanges && i === 0) {
+                    output += log('Score Range Validation: PASS', 'pass');
+                }
+            }
+
+            // Test 3: Total Score Validation
+            output += log('\n=== TOTAL SCORE VALIDATION ===', 'info');
+            
+            const maxPossibleScore = Object.values(gunaMaxScores).reduce((a, b) => a + b, 0);
+            output += log(`Maximum Possible Score: ${maxPossibleScore}`, 'info');
+            
+            // Test perfect match scenario
+            const perfectMatch = engine.calculateGunaMatching(
+                { nakshatra: 0, rashi: 0 }, 
+                { nakshatra: 0, rashi: 0 }
+            );
+            
+            output += log(`Perfect Match Test Score: ${perfectMatch.totalScore}/${maxPossibleScore}`, 
+                        perfectMatch.totalScore === maxPossibleScore ? 'pass' : 'warning');
+
+            // Test 4: Dosha Detection
+            output += log('\n=== DOSHA DETECTION VALIDATION ===', 'info');
+            
+            // Test known dosha combinations
+            const doshaTests = [
+                {
+                    name: "Nadi Dosha",
+                    groom: { nakshatra: 0, rashi: 0 }, // Vata
+                    bride: { nakshatra: 5, rashi: 2 }, // Vata
+                    checkGuna: "nadi"
+                },
+                {
+                    name: "Gana Dosha", 
+                    groom: { nakshatra: 0, rashi: 0 }, // Deva
+                    bride: { nakshatra: 2, rashi: 0 }, // Rakshasa
+                    checkGuna: "gana"
+                }
+            ];
+
+            doshaTests.forEach(test => {
+                const result = engine.calculateGunaMatching(test.groom, test.bride);
+                const hasDosha = result.results[test.checkGuna].score === 0;
+                output += log(`${test.name}: ${hasDosha ? 'DETECTED' : 'NOT DETECTED'}`, 
+                            hasDosha ? 'pass' : 'fail');
+            });
+
+            resultsDiv.innerHTML = output;
+        }
+
+        // Auto-run quick demo on page load
+        window.addEventListener('load', () => {
+            runQuickDemo();
+        });
+    </script>
+</body>
+</html>

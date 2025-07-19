@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Individual Koot Cards</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 10px 0; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        .instruction {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .feature-highlight {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Individual Koot Cards Test</h1>
+                    <p>Personal astrological profiles for bride and groom</p>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle" onclick="toggleTheme()" class="theme-btn">
+                        <span id="themeIcon">🌙</span>
+                        <span id="themeText">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="instruction">
+            <h3>🆕 New Feature: Individual Astrological Profiles</h3>
+            <p>After compatibility analysis, you'll now see personalized cards for both bride and groom explaining:</p>
+            <ul>
+                <li><strong>What each astrological factor means for them personally</strong></li>
+                <li><strong>Their individual personality traits and characteristics</strong></li>
+                <li><strong>How their nature influences relationships</strong></li>
+                <li><strong>Their strengths and natural tendencies</strong></li>
+            </ul>
+        </div>
+
+        <div class="feature-highlight">
+            <h4>Individual Cards Include:</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+                <div>• <strong>Varna</strong> - Spiritual nature</div>
+                <div>• <strong>Vashya</strong> - Behavioral patterns</div>
+                <div>• <strong>Gana</strong> - Temperament type</div>
+                <div>• <strong>Yoni</strong> - Physical nature</div>
+                <div>• <strong>Nadi</strong> - Health constitution</div>
+                <div>• <strong>Graha</strong> - Ruling planet influence</div>
+                <div>• <strong>Nakshatra</strong> - Birth star qualities</div>
+                <div>• <strong>Rashi</strong> - Moon sign traits</div>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <div class="person-form">
+                <h2>Groom's Details</h2>
+                <input type="text" id="groomName" value="Rahul" placeholder="Name">
+                <input type="date" id="groomDob" value="1995-01-17">
+                <input type="time" id="groomTob" value="04:10">
+                <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+            </div>
+            
+            <div class="person-form">
+                <h2>Bride's Details</h2>
+                <input type="text" id="brideName" value="Priya" placeholder="Name">
+                <input type="date" id="brideDob" value="1997-03-12">
+                <input type="time" id="brideTob" value="12:01">
+                <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+            </div>
+        </div>
+
+        <button id="matchBtn" onclick="performMatching()">Match Kundli - See Individual Profiles!</button>
+        
+        <div id="results" class="results-container" style="display: none;"></div>
+    </div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        console.log("Individual Koot cards test page loaded");
+    </script>
+</body>
+</html>

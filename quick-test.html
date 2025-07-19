@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Test</title>
+</head>
+<body>
+    <h1>Quick Kundli Test</h1>
+    <button onclick="testFunction()">Test Function</button>
+    <div id="output"></div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app.js"></script>
+    
+    <script>
+        function testFunction() {
+            console.log("Testing...");
+            document.getElementById('output').innerHTML = "Test started...<br>";
+            
+            try {
+                // Test if engine works
+                const engine = new KundliEngine();
+                document.getElementById('output').innerHTML += "✅ Engine created<br>";
+                
+                // Test moon calculation
+                const pos = engine.calculateMoonPosition('1995-01-17', '04:10', 'Patna');
+                document.getElementById('output').innerHTML += `✅ Moon position: ${pos.nakshatra}<br>`;
+                
+                // Test if performMatching function exists
+                if (typeof performMatching === 'function') {
+                    document.getElementById('output').innerHTML += "✅ performMatching function exists<br>";
+                } else {
+                    document.getElementById('output').innerHTML += "❌ performMatching function missing<br>";
+                }
+                
+            } catch (error) {
+                document.getElementById('output').innerHTML += `❌ Error: ${error.message}<br>`;
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

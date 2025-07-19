@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Gradient Color Cards</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 10px 0; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        .instruction {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .color-legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .legend-item {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Gradient Color Cards</h1>
+    
+    <div class="instruction">
+        <h3>🎨 New Feature: Gradient Color Cards</h3>
+        <p>Each Guna card now has a background color that reflects the compatibility score:</p>
+        <ul>
+            <li><strong>Red tones</strong> → Low scores (0-25%)</li>
+            <li><strong>Orange/Yellow tones</strong> → Medium scores (26-75%)</li>
+            <li><strong>Green tones</strong> → High scores (76-100%)</li>
+        </ul>
+        <p>The entire card background, text, and progress bars are color-coordinated!</p>
+    </div>
+
+    <div class="color-legend">
+        <h4>Color Legend:</h4>
+        <span class="legend-item" style="background: #ffebee; color: #c62828; border: 2px solid #c62828;">0% Score</span>
+        <span class="legend-item" style="background: #ffcdd2; color: #d32f2f; border: 2px solid #d32f2f;">1-25% Score</span>
+        <span class="legend-item" style="background: #fff3e0; color: #f57c00; border: 2px solid #f57c00;">26-50% Score</span>
+        <span class="legend-item" style="background: #fff8e1; color: #f9a825; border: 2px solid #f9a825;">51-75% Score</span>
+        <span class="legend-item" style="background: #f1f8e9; color: #689f38; border: 2px solid #689f38;">76-99% Score</span>
+        <span class="legend-item" style="background: #e8f5e8; color: #388e3c; border: 2px solid #388e3c;">100% Score</span>
+    </div>
+    
+    <div class="form-group">
+        <h3>Groom</h3>
+        <input type="text" id="groomName" value="Rahul" placeholder="Name">
+        <input type="date" id="groomDob" value="1995-01-17">
+        <input type="time" id="groomTob" value="04:10">
+        <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+    </div>
+    
+    <div class="form-group">
+        <h3>Bride</h3>
+        <input type="text" id="brideName" value="Priya" placeholder="Name">
+        <input type="date" id="brideDob" value="1997-03-12">
+        <input type="time" id="brideTob" value="12:01">
+        <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+    </div>
+    
+    <button onclick="performMatching()">Match Kundli - See Gradient Colors!</button>
+    
+    <div id="results" class="results-container" style="display: none;"></div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        console.log("Test page loaded - Gradient color cards");
+    </script>
+</body>
+</html>

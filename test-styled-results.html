@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Styled Results</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 10px 0; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Test Styled Kundli Results</h1>
+    
+    <div class="form-group">
+        <h3>Groom</h3>
+        <input type="text" id="groomName" value="Rahul" placeholder="Name">
+        <input type="date" id="groomDob" value="1995-01-17">
+        <input type="time" id="groomTob" value="04:10">
+        <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+    </div>
+    
+    <div class="form-group">
+        <h3>Bride</h3>
+        <input type="text" id="brideName" value="Priya" placeholder="Name">
+        <input type="date" id="brideDob" value="1997-03-12">
+        <input type="time" id="brideTob" value="12:01">
+        <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+    </div>
+    
+    <button onclick="performMatching()">Match Kundli</button>
+    
+    <div id="results" class="results-container" style="display: none;"></div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        console.log("Test page loaded");
+        console.log("Functions available:", {
+            KundliEngine: typeof KundliEngine,
+            performMatching: typeof performMatching,
+            getGunaDisplayName: typeof getGunaDisplayName,
+            getRecommendations: typeof getRecommendations
+        });
+    </script>
+</body>
+</html>

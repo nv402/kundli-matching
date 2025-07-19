@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Kundli Test</title>
+</head>
+<body>
+    <h1>Simple Kundli Matching Test</h1>
+    
+    <div>
+        <h3>Groom Details</h3>
+        <input type="text" id="groomName" value="Rahul" placeholder="Name">
+        <input type="date" id="groomDob" value="1995-01-17">
+        <input type="time" id="groomTob" value="04:10">
+        <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+    </div>
+    
+    <div>
+        <h3>Bride Details</h3>
+        <input type="text" id="brideName" value="Priya" placeholder="Name">
+        <input type="date" id="brideDob" value="1997-03-12">
+        <input type="time" id="brideTob" value="12:01">
+        <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+    </div>
+    
+    <button onclick="performMatching()">Match Kundli</button>
+    
+    <div id="results" style="display: none;">
+        <h2>Results will appear here</h2>
+        <div id="gunaScore"></div>
+        <div id="detailedResults"></div>
+        <div id="recommendations"></div>
+    </div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app.js"></script>
+    
+    <script>
+        // Additional debugging
+        console.log("Page loaded");
+        console.log("KundliEngine available:", typeof KundliEngine);
+        console.log("performMatching available:", typeof performMatching);
+        
+        // Test button click
+        function testClick() {
+            console.log("Test button clicked");
+            alert("Button works!");
+        }
+    </script>
+</body>
+</html>

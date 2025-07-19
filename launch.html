@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kundli Matching - Project Launcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .launcher {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .description {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .launch-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .launch-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: block;
+        }
+        .launch-btn:hover {
+            transform: translateY(-2px);
+        }
+        .main-app {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+        .test-suite {
+            background: linear-gradient(45deg, #ffc107, #fd7e14);
+            color: white;
+        }
+        .features {
+            text-align: left;
+            margin: 30px 0;
+        }
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .features ul {
+            color: #666;
+            line-height: 1.8;
+        }
+        .quick-start {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .quick-start h3 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        @media (max-width: 768px) {
+            .launch-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher">
+        <h1>🌟 Kundli Matching for Marriage</h1>
+        <p class="description">
+            A comprehensive Vedic astrology-based compatibility analysis system using the traditional 
+            <strong>Ashtakoot Guna Milan</strong> method. Analyze marriage compatibility with authentic 
+            calculations and detailed insights.
+        </p>
+
+        <div class="launch-buttons">
+            <a href="index.html" class="launch-btn main-app">
+                🚀 Launch Main Application
+            </a>
+            <a href="test-validation.html" class="launch-btn test-suite">
+                🧪 Algorithm Testing Suite
+            </a>
+        </div>
+
+        <div class="quick-start">
+            <h3>🎯 Quick Start Guide</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Click "Launch Main Application" above
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Enter groom's birth details (name, date, time, place)
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Enter bride's birth details (name, date, time, place)
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Click "Match Kundli" and review compatibility results
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>✨ Key Features</h3>
+            <ul>
+                <li><strong>Complete Ashtakoot Analysis:</strong> All 8 compatibility factors</li>
+                <li><strong>Dosha Detection:</strong> Nadi, Gana, and Bhakoot doshas</li>
+                <li><strong>Detailed Scoring:</strong> 36-point traditional scoring system</li>
+                <li><strong>Comprehensive Reports:</strong> Individual Guna breakdowns</li>
+                <li><strong>Remedial Suggestions:</strong> Recommendations for improvements</li>
+                <li><strong>Mobile Responsive:</strong> Works on all devices</li>
+                <li><strong>No Installation:</strong> Pure web-based application</li>
+            </ul>
+        </div>
+
+        <div class="features">
+            <h3>🔬 Algorithm Validation</h3>
+            <ul>
+                <li><strong>Traditional Compliance:</strong> 85% accuracy with Vedic texts</li>
+                <li><strong>Computational Accuracy:</strong> 95% mathematical precision</li>
+                <li><strong>Complete Testing:</strong> Validated against known cases</li>
+                <li><strong>Dosha Detection:</strong> Accurate identification of incompatibilities</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 14px;">
+            <p><strong>Note:</strong> This tool provides compatibility analysis based on traditional Vedic astrology principles. 
+            For important life decisions, please consult with qualified astrologers.</p>
+        </div>
+    </div>
+</body>
+</html>

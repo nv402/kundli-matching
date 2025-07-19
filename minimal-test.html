@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Kundli Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 10px 0; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        #results { margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Minimal Kundli Matching Test</h1>
+    
+    <div class="form-group">
+        <h3>Groom</h3>
+        <input type="text" id="groomName" value="Rahul" placeholder="Name">
+        <input type="date" id="groomDob" value="1995-01-17">
+        <input type="time" id="groomTob" value="04:10">
+        <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+    </div>
+    
+    <div class="form-group">
+        <h3>Bride</h3>
+        <input type="text" id="brideName" value="Priya" placeholder="Name">
+        <input type="date" id="brideDob" value="1997-03-12">
+        <input type="time" id="brideTob" value="12:01">
+        <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+    </div>
+    
+    <button onclick="simpleMatch()">Match Kundli</button>
+    
+    <div id="results" style="display: none;"></div>
+
+    <script src="kundli-engine.js"></script>
+    
+    <script>
+        function simpleMatch() {
+            console.log("Simple match started");
+            
+            try {
+                // Create engine
+                const engine = new KundliEngine();
+                
+                // Get form data
+                const groomData = {
+                    name: document.getElementById('groomName').value,
+                    dob: document.getElementById('groomDob').value,
+                    tob: document.getElementById('groomTob').value,
+                    place: document.getElementById('groomPlace').value
+                };
+                
+                const brideData = {
+                    name: document.getElementById('brideName').value,
+                    dob: document.getElementById('brideDob').value,
+                    tob: document.getElementById('brideTob').value,
+                    place: document.getElementById('bridePlace').value
+                };
+                
+                console.log("Form data:", groomData, brideData);
+                
+                // Calculate positions
+                const groomPos = engine.calculateMoonPosition(groomData.dob, groomData.tob, groomData.place);
+                const bridePos = engine.calculateMoonPosition(brideData.dob, brideData.tob, brideData.place);
+                
+                console.log("Positions:", groomPos, bridePos);
+                
+                // Calculate matching
+                const results = engine.calculateGunaMatching(groomPos, bridePos);
+                
+                console.log("Results:", results);
+                
+                // Display results
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = `
+                    <h2>Compatibility Results</h2>
+                    <h3>${groomData.name} & ${brideData.name}</h3>
+                    <p><strong>Total Score: ${results.totalScore}/36</strong></p>
+                    <p><strong>Compatibility: ${results.compatibility.level}</strong></p>
+                    
+                    <h4>Birth Details:</h4>
+                    <p>Groom: ${engine.nakshatras[groomPos.nakshatra].name} nakshatra, ${engine.rashis[groomPos.rashi]} rashi</p>
+                    <p>Bride: ${engine.nakshatras[bridePos.nakshatra].name} nakshatra, ${engine.rashis[bridePos.rashi]} rashi</p>
+                    
+                    <h4>Guna Breakdown:</h4>
+                    <ul>
+                        ${Object.entries(results.results).map(([guna, data]) => 
+                            `<li><strong>${guna.toUpperCase()}:</strong> ${data.score}/${data.maxScore} - ${data.description}</li>`
+                        ).join('')}
+                    </ul>
+                `;
+                
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById('results').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                document.getElementById('results').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

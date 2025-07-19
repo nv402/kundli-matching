@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Minimal App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 10px 0; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        #results { margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Test Minimal Kundli App</h1>
+    
+    <div class="form-group">
+        <h3>Groom</h3>
+        <input type="text" id="groomName" value="Rahul" placeholder="Name">
+        <input type="date" id="groomDob" value="1995-01-17">
+        <input type="time" id="groomTob" value="04:10">
+        <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+    </div>
+    
+    <div class="form-group">
+        <h3>Bride</h3>
+        <input type="text" id="brideName" value="Priya" placeholder="Name">
+        <input type="date" id="brideDob" value="1997-03-12">
+        <input type="time" id="brideTob" value="12:01">
+        <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+    </div>
+    
+    <button onclick="performMatching()">Match Kundli</button>
+    
+    <div id="results" style="display: none;"></div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        console.log("Page loaded");
+        console.log("KundliEngine available:", typeof KundliEngine);
+        console.log("performMatching available:", typeof performMatching);
+    </script>
+</body>
+</html>

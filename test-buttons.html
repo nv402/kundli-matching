@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Test</title>
+</head>
+<body>
+    <h1>Button Functionality Test</h1>
+    
+    <button onclick="testToggleTutorial()">Test Toggle Tutorial</button>
+    <button onclick="testPerformMatching()">Test Perform Matching</button>
+    
+    <div id="tutorial-content" style="display: none;">
+        <p>This is the tutorial content</p>
+    </div>
+    
+    <span id="tutorial-icon">📖 Show Tutorial</span>
+    
+    <div id="test-results"></div>
+    
+    <script>
+        function testToggleTutorial() {
+            console.log('Test toggle tutorial called');
+            document.getElementById('test-results').innerHTML += '<p>Toggle Tutorial button works!</p>';
+            
+            // Test the actual function
+            if (typeof toggleTutorial === 'function') {
+                toggleTutorial();
+            } else {
+                console.error('toggleTutorial function not found');
+            }
+        }
+        
+        function testPerformMatching() {
+            console.log('Test perform matching called');
+            document.getElementById('test-results').innerHTML += '<p>Perform Matching button works!</p>';
+            
+            // Test the actual function
+            if (typeof performMatching === 'function') {
+                performMatching();
+            } else {
+                console.error('performMatching function not found');
+            }
+        }
+        
+        // Include the actual functions for testing
+        function toggleTutorial() {
+            console.log('toggleTutorial function called');
+            
+            const tutorialContent = document.getElementById('tutorial-content');
+            const tutorialIcon = document.getElementById('tutorial-icon');
+            
+            if (!tutorialContent || !tutorialIcon) {
+                console.error('Tutorial elements not found');
+                return;
+            }
+
+            const isHidden = tutorialContent.style.display === 'none' ||
+                window.getComputedStyle(tutorialContent).display === 'none';
+
+            if (isHidden) {
+                tutorialContent.style.display = 'block';
+                tutorialIcon.textContent = '📚 Hide Tutorial';
+            } else {
+                tutorialContent.style.display = 'none';
+                tutorialIcon.textContent = '📖 Show Tutorial';
+            }
+        }
+        
+        function performMatching() {
+            console.log('performMatching function called');
+            alert('Perform matching function works!');
+        }
+    </script>
+</body>
+</html>

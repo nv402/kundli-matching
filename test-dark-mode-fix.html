@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Dark Mode Fix</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-group { margin: 10px 0; }
+        input { margin: 5px; padding: 5px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        .instruction {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .fix-highlight {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Dark Mode Fix Test</h1>
+                    <p>Birth Details section now adapts to dark mode</p>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle" onclick="toggleTheme()" class="theme-btn">
+                        <span id="themeIcon">🌙</span>
+                        <span id="themeText">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="instruction">
+            <h3>✅ Dark Mode Issues Fixed!</h3>
+            <p style="color: var(--text-secondary);">The following sections now properly adapt to dark mode:</p>
+            <ul style="color: var(--text-secondary);">
+                <li><strong>Birth Details</strong> - No more bright white background</li>
+                <li><strong>Recommendations</strong> - Theme-aware background and text</li>
+                <li><strong>Guna Score Cards</strong> - Adaptive backgrounds</li>
+                <li><strong>Individual Koot Cards</strong> - Proper dark mode styling</li>
+            </ul>
+        </div>
+
+        <div class="fix-highlight">
+            <h4 style="color: var(--text-primary);">What Was Fixed:</h4>
+            <div style="color: var(--text-secondary);">
+                <p><strong>Before:</strong> Hardcoded white backgrounds that were too bright in dark mode</p>
+                <p><strong>After:</strong> CSS variables that adapt to the selected theme</p>
+                <p><strong>Result:</strong> Consistent, comfortable viewing in both light and dark modes</p>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <div class="person-form">
+                <h2>Groom's Details</h2>
+                <input type="text" id="groomName" value="Rahul" placeholder="Name">
+                <input type="date" id="groomDob" value="1995-01-17">
+                <input type="time" id="groomTob" value="04:10">
+                <input type="text" id="groomPlace" value="Patna" placeholder="Place">
+            </div>
+            
+            <div class="person-form">
+                <h2>Bride's Details</h2>
+                <input type="text" id="brideName" value="Priya" placeholder="Name">
+                <input type="date" id="brideDob" value="1997-03-12">
+                <input type="time" id="brideTob" value="12:01">
+                <input type="text" id="bridePlace" value="Gaya" placeholder="Place">
+            </div>
+        </div>
+
+        <button id="matchBtn" onclick="performMatching()">Test Dark Mode Compatibility</button>
+        
+        <div id="results" class="results-container" style="display: none;"></div>
+    </div>
+
+    <script src="kundli-engine.js"></script>
+    <script src="app-minimal.js"></script>
+    
+    <script>
+        console.log("Dark mode fix test page loaded");
+        
+        // Auto-toggle to dark mode after 3 seconds for demonstration
+        setTimeout(() => {
+            if (!document.body.getAttribute('data-theme')) {
+                console.log("Auto-switching to dark mode for demonstration");
+                toggleTheme();
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
