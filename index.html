@@ -489,13 +489,20 @@
         <button id="matchBtn" onclick="performMatching()">Match Kundli</button>
 
         <div id="results" class="results-container" style="display: none;">
-            <h2>Compatibility Results</h2>
+            <div class="results-header">
+                <h2>Compatibility Results</h2>
+                <button id="downloadPdfBtn" onclick="downloadPDF()" class="download-btn" style="display: none;">
+                    📄 Download PDF Report
+                </button>
+            </div>
             <div id="gunaScore" class="score-display"></div>
             <div id="detailedResults" class="detailed-results"></div>
             <div id="recommendations" class="recommendations"></div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="src/kundli-engine.js"></script>
     <script src="src/app-minimal.js"></script>
     

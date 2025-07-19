@@ -168,11 +168,73 @@ header h1 {
     padding: 40px;
     background: var(--bg-tertiary);
     transition: background-color 0.3s ease;
+    color: var(--text-primary);
+}
+
+.results-container h2 {
+    color: var(--text-primary);
+}
+
+.results-container h3 {
+    color: var(--text-primary);
+}
+
+.results-container h4 {
+    color: var(--text-primary);
+}
+
+.results-container h5 {
+    color: var(--text-primary);
+}
+
+.results-container p {
+    color: var(--text-secondary);
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.download-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    background: linear-gradient(45deg, #218838, #1ea085);
+}
+
+@media (max-width: 768px) {
+    .results-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .download-btn {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .score-display {
     text-align: center;
     margin-bottom: 30px;
+    color: var(--text-primary);
 }
 
 .score-circle {
@@ -191,12 +253,13 @@ header h1 {
     left: 20px;
     width: 110px;
     height: 110px;
-    background: white;
+    background: var(--card-bg);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    color: var(--text-primary);
 }
 
 .detailed-results {
@@ -207,11 +270,12 @@ header h1 {
 }
 
 .guna-card {
-    background: white;
+    background: var(--card-bg);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px var(--shadow);
     transition: transform 0.2s ease;
+    color: var(--text-primary);
 }
 
 .guna-card:hover {
@@ -252,7 +316,7 @@ header h1 {
 }
 
 .detailed-content h5 {
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 10px;
     font-size: 1em;
 }
@@ -260,7 +324,7 @@ header h1 {
 .detailed-content p {
     margin-bottom: 15px;
     line-height: 1.6;
-    color: #555;
+    color: var(--text-secondary);
 }
 
 /* Individual Koot Cards Styling */

@@ -70,7 +70,10 @@ function displaySimpleResults(results, groomData, brideData, groomPos, bridePos)
     const percentage = Math.round((results.totalScore / results.maxScore) * 100);
 
     resultsContainer.innerHTML =
+        '<div class="results-header">' +
         '<h2>Compatibility Results</h2>' +
+        '<button id="downloadPdfBtn" onclick="downloadPDF()" class="download-btn">📄 Download PDF Report</button>' +
+        '</div>' +
 
         '<div class="score-display">' +
         '<div class="score-circle" style="--score-deg: ' + (percentage * 3.6) + 'deg;">' +
@@ -778,9 +781,127 @@ function initializeTheme() {
     }
 }
 
+// PDF Generation Function
+function downloadPDF() {
+    const resultsContainer = document.getElementById('results');
+    if (!resultsContainer) {
+        alert('No results to download. Please generate compatibility results first.');
+        return;
+    }
+
+    // Show loading message
+    const downloadBtn = document.getElementById('downloadPdfBtn');
+    const originalText = downloadBtn.textContent;
+    downloadBtn.textContent = '🔄 Generating PDF...';
+    downloadBtn.disabled = true;
+
+    // Create a temporary container for PDF content
+    const pdfContainer = document.createElement('div');
+    pdfContainer.style.position = 'absolute';
+    pdfContainer.style.left = '-9999px';
+    pdfContainer.style.top = '0';
+    pdfContainer.style.width = '800px';
+    pdfContainer.style.backgroundColor = 'white';
+    pdfContainer.style.color = 'black';
+    pdfContainer.style.padding = '40px';
+    pdfContainer.style.fontFamily = 'Arial, sans-serif';
+    pdfContainer.style.fontSize = '12px';
+    pdfContainer.style.lineHeight = '1.4';
+
+    // Clone the results content
+    const resultsClone = resultsContainer.cloneNode(true);
+
+    // Remove the download button from the clone
+    const downloadBtnClone = resultsClone.querySelector('#downloadPdfBtn');
+    if (downloadBtnClone) {
+        downloadBtnClone.remove();
+    }
+
+    // Add header information
+    const header = document.createElement('div');
+    header.innerHTML = `
+        <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 20px;">
+            <h1 style="color: #333; margin: 0; font-size: 24px;">Kundli Matching Report</h1>
+            <p style="color: #666; margin: 10px 0 0 0; font-size: 14px;">Vedic Astrology Compatibility Analysis</p>
+            <p style="color: #666; margin: 5px 0 0 0; font-size: 12px;">Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p>
+        </div>
+    `;
+    pdfContainer.appendChild(header);
+
+    // Add the results content
+    pdfContainer.appendChild(resultsClone);
+
+    // Add footer
+    const footer = document.createElement('div');
+    footer.innerHTML = `
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; text-align: center; font-size: 10px; color: #666;">
+            <p>This report is generated using traditional Vedic astrology principles.</p>
+            <p>For detailed consultation and remedies, please consult with a qualified astrologer.</p>
+            <p>© ${new Date().getFullYear()} Kundli Matching Tool</p>
+        </div>
+    `;
+    pdfContainer.appendChild(footer);
+
+    // Add to document temporarily
+    document.body.appendChild(pdfContainer);
+
+    // Generate PDF using html2canvas and jsPDF
+    html2canvas(pdfContainer, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff'
+    }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 210;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        let position = 0;
+
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        // Generate filename
+        const groomName = document.getElementById('groomName')?.value || 'Groom';
+        const brideName = document.getElementById('brideName')?.value || 'Bride';
+        const filename = `Kundli_Matching_${groomName}_${brideName}_${new Date().toISOString().split('T')[0]}.pdf`;
+
+        // Download the PDF
+        pdf.save(filename);
+
+        // Clean up
+        document.body.removeChild(pdfContainer);
+
+        // Restore button
+        downloadBtn.textContent = originalText;
+        downloadBtn.disabled = false;
+    }).catch(error => {
+        console.error('PDF generation failed:', error);
+        alert('PDF generation failed. Please try again.');
+
+        // Clean up
+        document.body.removeChild(pdfContainer);
+
+        // Restore button
+        downloadBtn.textContent = originalText;
+        downloadBtn.disabled = false;
+    });
+}
+
 // Make functions globally available
 window.performMatching = performMatching;
 window.toggleTutorial = toggleTutorial;
 window.scrollToForms = scrollToForms;
 window.toggleGunaDetails = toggleGunaDetails;
 window.toggleTheme = toggleTheme;
+window.downloadPDF = downloadPDF;
