@@ -660,13 +660,6 @@ function getDetailedGunaInfo(gunaKey, result, groomPos, bridePos) {
 
         '<h5 style="color: #333; margin-bottom: 10px;">📊 Scoring System</h5>' +
         '<p style="margin-bottom: 15px; line-height: 1.6;">' + info.scoring + '</p>' +
-
-        (result.compatible ? '' :
-            '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 10px; margin-top: 10px;">' +
-            '<h5 style="color: #856404; margin-bottom: 5px;">💡 Recommendations</h5>' +
-            '<p style="color: #856404; margin: 0; font-size: 0.9em;">Consider consulting with an experienced astrologer for specific remedial measures and guidance.</p>' +
-            '</div>'
-        ) +
         '</div>';
 }
 
@@ -795,6 +788,13 @@ function downloadPDF() {
     downloadBtn.textContent = '🔄 Generating PDF...';
     downloadBtn.disabled = true;
 
+    // Expand all guna cards/tiles before generating the PDF
+    const allDetails = document.querySelectorAll('.guna-detailed-info');
+    const allIcons = document.querySelectorAll('.expand-icon');
+    allDetails.forEach(div => { div.style.display = 'block'; });
+    allIcons.forEach(icon => { icon.textContent = '▲'; });
+
+    // Immediately generate the PDF after expanding tiles (no delay)
     // Create a temporary container for PDF content
     const pdfContainer = document.createElement('div');
     pdfContainer.style.position = 'absolute';
@@ -851,9 +851,11 @@ function downloadPDF() {
         useCORS: true,
         allowTaint: true,
         backgroundColor: '#ffffff'
-    }).then(canvas => {
+    }).then(function (canvas) {
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
+        // Use the correct jsPDF reference for UMD build
+        const jsPDFConstructor = window.jspdf ? window.jspdf.jsPDF : window.jsPDF;
+        const pdf = new jsPDFConstructor('p', 'mm', 'a4');
         const imgWidth = 210;
         const pageHeight = 295;
         const imgHeight = canvas.height * imgWidth / canvas.width;

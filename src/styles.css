@@ -1168,3 +1168,18 @@ header h1 {
         grid-template-columns: 1fr;
     }
 }
+
+[data-theme="dark"] .score-inner > div:first-child {
+    color: #fff !important;
+}
+
+.guna-detailed-info .detailed-content,
+.guna-detailed-info .detailed-content h5,
+.guna-detailed-info .detailed-content p,
+.guna-detailed-info .detailed-content .guna-explanation,
+.guna-detailed-info .detailed-content .analysis-details,
+.guna-detailed-info .detailed-content .significance,
+.guna-detailed-info .detailed-content .remedies,
+.guna-detailed-info .detailed-content .scoring-info {
+    color: #111 !important;
+}
